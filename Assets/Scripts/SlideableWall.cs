@@ -22,15 +22,17 @@ public class SlideableWall : MonoBehaviour
         if (!sliding) {
             RaycastHit hit;
             if (Physics.Raycast(playerCam.position, playerCam.forward, out hit, maxRaycastDistance)) {
-                var slideDir = 0;
-                if (Input.GetKeyDown(KeyCode.E)) {
-                    slideDir = 1;
+                if (hit.transform == transform) {
+                    var slideDir = 0;
+                    if (Input.GetKeyDown(KeyCode.E)) {
+                        slideDir = 1;
 
-                } else if (Input.GetKeyDown(KeyCode.Q)) {
-                    slideDir = -1;
-                }
-                if (slideDir != 0) {
-                    Slide(slideDir);
+                    } else if (Input.GetKeyDown(KeyCode.Q)) {
+                        slideDir = -1;
+                    }
+                    if (slideDir != 0) {
+                        Slide(slideDir);
+                    }
                 }
             }
         }
