@@ -54,7 +54,7 @@ public class SlideableWall : MonoBehaviour
         sliding = true;
         var initPos = transform.position;
         StartCoroutine(pTween.To(slideDuration, 0, 1, t => {
-            transform.position = Vector3.Lerp(initPos, initPos + relativeSlidePos * slideDir, easeCurve.Evaluate(t));
+            transform.position = Vector3.Lerp(initPos, initPos + transform.TransformDirection(relativeSlidePos) * slideDir, easeCurve.Evaluate(t));
             if (t == 1) {
                 sliding = false;
             }
@@ -64,7 +64,7 @@ public class SlideableWall : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + relativeSlidePos);
+        Gizmos.DrawLine(transform.position, transform.position + transform.TransformDirection(relativeSlidePos));
 
     }
 }
