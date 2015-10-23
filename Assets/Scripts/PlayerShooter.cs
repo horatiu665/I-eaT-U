@@ -6,6 +6,8 @@ public class PlayerShooter : MonoBehaviour {
     public Transform bullet;
     public float spawnInFront = 1f;
 
+    public string buttonToShoot = "Shoot";
+
     void Shoot()
     {
         var b = Instantiate(bullet, transform.position + transform.forward *spawnInFront , transform.rotation) as Transform;
@@ -14,7 +16,7 @@ public class PlayerShooter : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X) || Input.GetMouseButtonDown(0)) {
+        if (Input.GetButtonDown(buttonToShoot)) {
             Shoot();
         }
     }
