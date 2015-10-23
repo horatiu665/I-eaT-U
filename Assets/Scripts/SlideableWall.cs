@@ -14,7 +14,7 @@ public class SlideableWall : MonoBehaviour
     public float slideDuration;
     public Vector3 relativeSlideDir;
     AnimationCurve easeCurve;
-    public LayerMask wallLayerMask;
+    public LayerMask obstaclesForTheWall;
 
     // Use this for initialization
     void Start()
@@ -46,7 +46,7 @@ public class SlideableWall : MonoBehaviour
 
                             Vector3 slideDirection = transform.TransformDirection(relativeSlideDir) * slideDir;
                             // if there is free space to the side in which we are moving
-                            if (!Physics.Raycast(transform.position, slideDirection, out hit, (transform.localScale.x) + (slideDirection).magnitude, wallLayerMask)) {
+                            if (!Physics.Raycast(transform.position, slideDirection, out hit, (slideDirection).magnitude, obstaclesForTheWall)) {
                                 Debug.DrawRay(transform.position, slideDirection, Color.cyan, 5);
                                 Slide(slideDirection);
 

@@ -6,40 +6,57 @@ public class PlayerMovement : MonoBehaviour
 
     public string moveForwardAxis = "Vertical";
     public float movementSpeed = 5f;
+    public string moveSidewaysAxis = "Horizontal";
+
     public string rotateAxis = "Horizontal";
     public float rotateAnglePerSecond = 180;
 
+    public bool rotateTowardsMovement;
+
     void UpdateRotation()
     {
-        float rotationInput = 0;
-        try {
-            rotationInput = Input.GetAxis(rotateAxis);
+        if (rotateTowardsMovement) {
+
+        } else {
+            float rotationInput = 0;
+            try {
+                rotationInput = Input.GetAxis(rotateAxis);
+            }
+            catch {
+
+            }
+
+            rotationInput *= rotateAnglePerSecond * Time.deltaTime;
+            transform.Rotate(0, rotationInput, 0);
         }
-        catch {
-
-        }
-
-        rotationInput *= rotateAnglePerSecond * Time.deltaTime;
-        transform.Rotate(0, rotationInput, 0);
-
     }
 
     void UpdatePosition()
     {
-        float movementInput = 0;
+        Vector3 movementInput = Vector3.zero;
         try {
-            movementInput = Input.GetAxis(moveForwardAxis);
+            movementInput.z = Input.GetAxis(moveForwardAxis);
         }
         catch {
 
         }
 
-        movementInput *= movementSpeed * Time.deltaTime;
-        
-        GetComponent<Rigidbody>().velocity += (transform.forward * movementInput);
-        
-        //transform.Translate(0, 0, movementInput);
+        try {
+            movementInput.x = Input.GetAxis(moveSidewaysAxis);
+        }
+        catch {
 
+        }
+
+
+        movementInput *= movementSpeed * Time.deltaTime;
+
+        GetComponent<Rigidbody>().velocity += (movementInput);
+
+        //transform.Translate(0, 0, movementInput);
+        if (rotateTowardsMovement) {
+            transform.LookAt(transform.position + movementInput);
+        }
     }
 
     void Update()

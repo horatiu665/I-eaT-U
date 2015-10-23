@@ -3,8 +3,10 @@ using System.Collections;
 
 public class MoveForwardReflectOnWalls : MonoBehaviour
 {
-
+    public int playerNumber;
     public float speed;
+
+    public Transform explosionPrefab;
 
     // Use this for initialization
     void Start()
@@ -19,7 +21,7 @@ public class MoveForwardReflectOnWalls : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, transform.forward, out hit, maxDistanceThisFrame)) {
             var toPoint = hit.point - transform.position;
-            hit.transform.SendMessage("BulletCollision", SendMessageOptions.DontRequireReceiver);
+            hit.transform.SendMessage("BulletCollision", this, SendMessageOptions.DontRequireReceiver);
             // reflect bullet and change direction
             var reflected = Vector3.Reflect(toPoint, hit.normal);
             transform.forward = reflected;
