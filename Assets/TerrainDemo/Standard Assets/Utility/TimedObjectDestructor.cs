@@ -9,11 +9,11 @@ namespace UnityStandardAssets.Utility
         [SerializeField] private bool m_DetachChildren = false;
 
 
-        private void Awake()
+        private void Start()
         {
             Invoke("DestroyNow", m_TimeOut);
         }
-
+        
 
         private void DestroyNow()
         {

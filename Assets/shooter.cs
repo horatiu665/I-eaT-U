@@ -11,6 +11,7 @@ public class shooter : MonoBehaviour {
 	void Start () {
         if (delay <= 0) delay = 0.001f;
         InvokeRepeating("Shoot", delay, delay);
+
 	}
 
     void Shoot()
